@@ -12,7 +12,7 @@
     <div class="tabs">
       <el-row type="flex" justify="start">
         <span v-for="(item,index) in tabs" :key="index" @click="handleIndex(index)" class="tabsNav" >
-          {{item.title}}
+          <div :class="{activeColor:currentTab==index}">{{item.title}}</div>
           <i :class="{active:currentTab==index}"></i>
         </span>
       </el-row>
@@ -104,7 +104,14 @@ export default {
     cursor:pointer;
     color: #fff;
     z-index: 900;
+    div{
+      position: absolute;
+      z-index: 1600;
+      width: 100%;
+      height: 100%;
+    }
     i {
+      z-index: 1000;
     position: absolute;
     left: 0;
     top: 0;
@@ -118,7 +125,9 @@ export default {
 }
 .active{
   background-color: #eeeeee;
-  
+}
+.activeColor{
+  color: #000;
 }
 
     /*     &:after{

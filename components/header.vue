@@ -3,10 +3,13 @@
     <!-- 版心 -->
     <div class="contain">
       <!-- logo部分 -->
+      <nuxt-link to="/">
       <h1>
         闲云旅游
-        <img src alt data-v-1992e634 />
+        <img src="http://157.122.54.189:9093/images/logo.jpg" alt="">
       </h1>
+
+      </nuxt-link>
       <!-- 导航部分 -->
       <div class="navigation">
         <nuxt-link to="/">首页</nuxt-link>
@@ -40,7 +43,7 @@
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>个人中心</el-dropdown-item>
-              <el-dropdown-item @click="quitOut">退出</el-dropdown-item>
+              <el-dropdown-item @click.native="handlequitOut">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </span>
@@ -54,7 +57,7 @@ export default {
     return {};
   },
   methods: {
-    quitOut(){
+    handlequitOut(){
       this.$router.push({path:'/user/login'})
     }
   }
