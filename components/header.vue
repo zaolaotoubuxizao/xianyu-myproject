@@ -30,15 +30,20 @@
             <el-dropdown-item>消息</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span v-if="false">登录/注册</span>
-        <span>
+        
+        <span v-if="!$store.state.user.userInfo.token">
+          <nuxt-link to="/user/login">登录/注册</nuxt-link></span>
+        <span v-else>
             <i>欢迎您&nbsp;&nbsp;&nbsp;</i>
           <el-dropdown>
             <span class="el-dropdown-link">
               <div class="userImg">
-                <img src="@/static/user.jpg" alt />
+                <img :src="$axios.defaults.baseURL+$store.state.user.userInfo.user.defaultAvatar" alt="" />
               </div>
-              黑猫
+              <!-- store中的数据每个模块都是单独的数据，读取时需要使用模块名字区分开，即使用命名空间 -->
+              <span>
+                {{$store.state.user.userInfo.user.nickname}}
+              </span>
             <i class="el-icon-caret-bottom el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
@@ -58,8 +63,15 @@ export default {
   },
   methods: {
     handlequitOut(){
+
+      const { commit }=this.$store
+      commit("user/clearUserInfo")
       this.$router.push({path:'/user/login'})
     }
+  },
+  mounted () {
+    // console.log(this.$store.state.user.userInfo.user.nickname)   // 为什么这里没有数据,组件加载完，这个插件才会收取数据
+    // console.log(111)
   }
 };
 </script>
@@ -109,10 +121,10 @@ export default {
         height: 38px;
           vertical-align: middle;
           box-sizing: border-box;
-        &:hover{
+/*         &:hover{
           outline: 2px solid #409eff;
           -moz-outline-radius: 50%;
-        }
+        } */
         img{
           width: 34px;
           height: 34px;

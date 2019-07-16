@@ -56,8 +56,8 @@ export default {
       .then(res => {
         // console.log(res)
         this.banners = res.data.data;
-        console.log(this.banners);
-        console.dir(this.$axios.defaults.baseURL);
+        // console.log(this.banners);
+        // console.dir(this.$axios.defaults.baseURL);
       })
       .catch(err => {
         console.log(err);

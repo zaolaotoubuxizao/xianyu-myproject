@@ -45,6 +45,9 @@ ol,
 li {
   list-style: none;
 }
+i{
+
+}
 input,a{
   outline: none;
 }

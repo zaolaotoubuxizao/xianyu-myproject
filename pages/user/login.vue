@@ -1,60 +1,36 @@
 <template>
+  <!-- 登录页 -->
   <div class="login">
+    <!-- 版心 -->
     <div class="contain">
-      <div class="loginInput">
-        <div class="loginForm">
-          <div class="formTitle">
-            <span>登录</span>
-            <span>注册</span>
-          </div>
-          <el-form
-            :model="userLoginInfo"
-            :rules="rules"
-            ref="userLoginInfo"
-            class="demo-ruleForm"
-          >
-            <el-form-item prop="username">
-              <el-input v-model="userLoginInfo.username" placeholder="用户名/手机"></el-input>
-            </el-form-item>
-            <el-form-item prop="password">
-              <el-input v-model="userLoginInfo.password" placeholder="密码"></el-input>
-            </el-form-item>
-            <el-row>
-              <a href="javascript:;">忘记密码</a>
-            </el-row>
-          </el-form>
-          <el-row>
-            <el-button type="primary" style="width:348px;margin:2px 0 0 24px;" @click="loginSubmit">登录</el-button>
-          </el-row>
+      <!-- 表单结构 -->
+      <div class="loginForm">
+        <!-- 表单上部标题 -->
+        <div class="formTitle">
+          <span @click="currentTab=0" :class="{active:currentTab==0}">登录</span>
+          <span @click="currentTab=1" :class="{active:currentTab==1}">注册</span>
         </div>
+        <loginForm v-if="currentTab==0"/>
+        <registerForm v-else/>
       </div>
     </div>
   </div>
 </template>
 <script>
+import loginForm from "@/components/user/loginForm.vue"
+import registerForm from "@/components/user/registerForm.vue"
 export default {
+  components:{
+    loginForm,
+    registerForm
+  },
   data() {
     return {
-      userLoginInfo: {
-        username: "1380013800",
-        password: ""
-      },
-      rules: {
-        username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
-        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
-      }
+      currentTab:1,
     };
   },
   methods: {
-      loginSubmit(){
-          this.$refs.userLoginInfo.validate(valid=>{
-              if(valid){
-                  console.log(111)
-              }else{
-                  this.$message.warning()
-              }
-          })
-      }
+    
   }
 };
 </script>
@@ -66,10 +42,10 @@ export default {
     width: 1200px;
     margin: 0 auto;
     display: flex;
-    .loginInput {
+    .loginForm {
       margin: 210px auto;
       width: 400px;
-      height: 282px;
+      // height: 282px;
       background-color: #fff;
       .formTitle {
         height: 50px;
@@ -79,30 +55,15 @@ export default {
           cursor: pointer;
           flex: 1;
           text-align: center;
-        }
-        span:first-child {
-          color: #ffa500;
-          border-top: 3px solid #ffa500;
-        }
-        span:last-child {   
           background-color: #eee;
         }
-      }
-      .el-form {
-        margin: 0 auto;
-        margin-top: 24px;
-        width: 348px;
-        text-align: center;
-        .el-input {
-          width: 348px;
-          height: 20px;
-        }
-        a {
-          display: block;
-          float: right;
-          font-size: 14px;
+        .active {
+          color: #ffa500;
+          border-top: 3px solid #ffa500;
+          background-color: #fff;
         }
       }
+
     }
   }
 }
