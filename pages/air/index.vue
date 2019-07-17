@@ -38,7 +38,21 @@
     </h2>
 
     <!-- 特价机票 -->
-    <div class="air-sale"></div>
+    <div class="air-sale" :data="discountedTicket">
+      <el-row>
+        <nuxt-link to="/">
+          <el-col class="air-sale-pic" :span="6" v-for="(item,index) in discountedTicket" :key="index">
+              <div>
+              <img :src="item.cover" alt="">
+                <span class="layer-bar">
+                    <i>{{item.departCity+"-"+item.destCity}}</i>
+                    <span>￥{{item.price}}</span>
+                </span>
+              </div>
+          </el-col>
+        </nuxt-link>
+      </el-row>
+    </div>
   </section>
 </template>
 
@@ -48,10 +62,30 @@ import searchForm from "@/components/air/searchForm";
 export default {
   // 注册组件
   components: {
-      searchForm
+    searchForm
   },
   data() {
-    return {};
+    return {
+      discountedTicket: [
+        {
+          cover: "",
+          departCity: "",
+          departCode: "",
+          destCity: "",
+          destCode: "",
+          departDate: "",
+          price: ""
+        }
+      ]
+    };
+  },
+  mounted() {
+    this.$axios({
+      url: "/airs/sale"
+    }).then(res => {
+      // console.log(res)
+      this.discountedTicket = res.data.data;
+    });
   }
 };
 </script>
@@ -74,6 +108,8 @@ export default {
       }
 
       .layer-bar {
+          display: flex;
+          justify-content: space-between;
         position: absolute;
         bottom: 0;
         left: 0;
@@ -168,4 +204,4 @@ export default {
     font-size: 20px;
   }
 }
-</style>
+</style> 

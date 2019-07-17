@@ -45,8 +45,8 @@ ol,
 li {
   list-style: none;
 }
-i{
-
+i,em{
+  font-style: normal;
 }
 input,a{
   outline: none;
