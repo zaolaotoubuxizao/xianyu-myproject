@@ -96,11 +96,14 @@ export default {
           v.value = v.name.replace("市", "");
           return v;
         });
-        // console.log(newData)
-        // 默认选择第一个
-        this.searchForm.departCity = newData[0].value;
-        this.searchForm.departCode=newData[0].sort;
-        cb(newData);
+        if(newData.length > 0){
+            // 默认选择第一个
+            this.searchForm.departCity = newData[0].value;
+            this.searchForm.departCode=newData[0].sort;
+            cb(newData);
+        }else{
+            cb([])
+        }
       });
     },
 
@@ -185,12 +188,16 @@ export default {
             if(flag) return;
             if(!rules[v].value){
                 flag=true;
-                this.$message.warning(rules[v].message)
+                this.$confirm(rules[v].message,"提示",{
+                    type:'warning',
+                    confirmButtonText: '确定',
+                    showCancelButton: false,
+                })
             }
         });
         if(!flag){
             this.$router.push({
-                path:'/airs/flights',
+                path:'/air/flights',
                 query:this.searchForm
             }) 
         }

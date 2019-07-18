@@ -79,8 +79,8 @@ export default {
         // console.log(res)
         this.$confirm(`您获取的验证码为${res.data.code}`, "提示",{
           style:"info",
+          confirmButtonText:'确定',
           showCancelButton:false,
-          confirmButtonText:'确定'
         } )
       });
     }
