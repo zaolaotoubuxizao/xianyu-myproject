@@ -47,7 +47,7 @@
             </el-col>
             <el-col :span="5" class="price">￥{{e.par_price}}</el-col>
             <el-col :span="3" class="choose-button">
-              <el-button type="warning" size="mini" @click="handleToOrder(e.seat_info)">选定</el-button>
+              <el-button type="warning" size="mini" @click="handleToOrder(data.id,e.seat_xid)">选定</el-button>
               <p>剩余：{{e.discount}}</p>
             </el-col>
           </el-row>
@@ -96,8 +96,13 @@ export default {
   },
   methods: {
     // 跳转到订单页
-    handleToOrder(e){
-      // /airs/:id
+    handleToOrder(id,seat_xid){
+      this.$router.push({
+        path:'/air/order',
+        query:{
+          id,seat_xid
+        }
+      })
     }
   }
 };

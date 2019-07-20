@@ -40,8 +40,11 @@
     <!-- 特价机票 -->
     <div class="air-sale" :data="discountedTicket">
       <el-row>
-        <nuxt-link to="/">
-          <el-col class="air-sale-pic" :span="6" v-for="(item,index) in discountedTicket" :key="index">
+        <nuxt-link 
+        :to="`/air/flights?departCity=${item.departCity}&departCode=${item.departCode}&destCity=${item.destCity}&destCode=${item.destCode}&departDate=${item.departDate}`" 
+        v-for="(item,index) in discountedTicket" 
+        :key="index">
+          <el-col class="air-sale-pic" :span="6">
               <div>
               <img :src="item.cover" alt="">
                 <span class="layer-bar">

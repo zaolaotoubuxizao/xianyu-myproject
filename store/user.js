@@ -26,6 +26,10 @@ export const mutations = {
     // 保存到本地
     // localStorage.setItem("dwxProject",JSON.stringify(data))
   },
+  // 获取本地数据的值
+  getUserInfo(state){
+    return state.userInfo
+  },
   clearUserInfo(state) {
     // if(process.browser){
     //     localStorage.removeItem("dwxSsrProject")
