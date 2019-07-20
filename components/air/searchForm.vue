@@ -196,6 +196,7 @@ export default {
             }
         });
         if(!flag){
+          localStorage.setItem("searchAirData",JSON.stringify(this.searchForm))
             this.$router.push({
                 path:'/air/flights',
                 query:this.searchForm

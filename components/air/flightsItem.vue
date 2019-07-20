@@ -14,7 +14,7 @@
               <span>{{data.org_airport_name}}{{data.org_airport_quay}}</span>
             </el-col>
             <el-col :span="8" class="flight-time">
-              <span>2时20分</span>
+              <span>{{rankTime}}</span>
             </el-col>
             <el-col :span="8" class="flight-airport">
               <strong>{{data.arr_time}}</strong>
@@ -47,7 +47,7 @@
             </el-col>
             <el-col :span="5" class="price">￥{{e.par_price}}</el-col>
             <el-col :span="3" class="choose-button">
-              <el-button type="warning" size="mini">选定</el-button>
+              <el-button type="warning" size="mini" @click="handleToOrder(e.seat_info)">选定</el-button>
               <p>剩余：{{e.discount}}</p>
             </el-col>
           </el-row>
@@ -73,16 +73,33 @@ export default {
       isShow: false
     };
   },
-  computed: {
-      rankTime(){
-          const arr=this.data.arr_time
-          const dep=this.data.dep_time
-          let start=dep.split(':');
-          let end=arr.split(':');
-          return 
-      }
+  watch:{
+    data(){
+      this.isShow=false
+    }
   },
-  methods: {}
+  computed: {
+    rankTime() {
+      const arr = this.data.arr_time;
+      const dep = this.data.dep_time;
+      let start = dep.split(":");
+      let end = arr.split(":");
+      // 如果开始的时间是小于结束的时间，加24小时
+      if (start[0] > end[0]) {
+        end[0] = +end[0] + 24;
+      }
+		const dis=((end[0]*60-start[0]*60)+(end[1]-start[1]))
+		const hours=Math.floor(dis/60) 
+		const secends=dis%60
+      return hours+"小时"+secends+"分";
+    }
+  },
+  methods: {
+    // 跳转到订单页
+    handleToOrder(e){
+      // /airs/:id
+    }
+  }
 };
 </script>
 
