@@ -68,6 +68,11 @@ export default {
       total: 0
     };
   },
+    // 当url参数发生变化，就触发并加载相应的数据
+  beforeRouteUpdate (to, from, next) {
+    next();
+    this.getData()
+  },
   computed: {
     // 使用计算属性监听航班列表数据的变化，假如发生变化则重新计算切割数据列表，达到分页效果
     dataList() {

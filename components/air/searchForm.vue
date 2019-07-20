@@ -196,7 +196,13 @@ export default {
             }
         });
         if(!flag){
-          localStorage.setItem("searchAirData",JSON.stringify(this.searchForm))
+          // 将搜索历史存入本地储存
+          const arr= JSON.parse(localStorage.getItem("searchAirData"))||[];
+          if(arr.length===4){
+            arr.pop()
+          }
+          arr.unshift(this.searchForm)
+          localStorage.setItem("searchAirData",JSON.stringify(arr))
             this.$router.push({
                 path:'/air/flights',
                 query:this.searchForm
